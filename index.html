@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NovaRide – Rent Cars Worldwide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:#f5f5f5;
+      color:#222;
+    }
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+    :root{
+      --nr-primary:#ff5a3c;
+      --nr-dark:#101010;
+      --nr-blue:#143d59;
+      --nr-bg:#f5f5f5;
+      --nr-green:#1ca36b;
+    }
+
+    /* HEADER */
+    header{
+      background:var(--nr-primary);
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .header-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:8px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .logo-wrap{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .logo-mark{
+      width:32px;height:32px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--nr-primary);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:18px;
+    }
+    .logo-text{
+      font-weight:800;
+      letter-spacing:.05em;
+      font-size:16px;
+    }
+    .logo-sub{
+      font-size:10px;
+      opacity:.9;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:13px;
+    }
+    .nav-link{
+      padding:6px 9px;
+      border-radius:16px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .nav-link.active{
+      background:#fff;
+      color:var(--nr-primary);
+    }
+    .header-right{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+    }
+    .header-right button{
+      border:none;
+      border-radius:16px;
+      padding:5px 10px;
+      cursor:pointer;
+      font-size:12px;
+      font-weight:600;
+    }
+    .btn-outline{
+      background:transparent;
+      border:1px solid #fff;
+      color:#fff;
+    }
+    .btn-light{
+      background:#fff;
+      color:var(--nr-primary);
+    }
+
+    /* HERO + SEARCH */
+    .hero{
+      background:linear-gradient(120deg,var(--nr-blue),var(--nr-primary));
+      color:#fff;
+      padding:20px 0 26px;
+    }
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding:0 12px;
+    }
+    .hero-title{
+      font-size:24px;
+      font-weight:800;
+      margin-bottom:4px;
+    }
+    .hero-sub{
+      font-size:13px;
+      opacity:.95;
+      margin-bottom:10px;
+    }
+
+    .search-panel{
+      background:#fff;
+      color:#222;
+      border-radius:10px;
+      padding:10px;
+      box-shadow:0 4px 16px rgba(0,0,0,.25);
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:flex-end;
+    }
+    .search-field{
+      flex:1;
+      min-width:150px;
+    }
+    .search-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:600;
+      color:#555;
+      margin-bottom:3px;
+    }
+    .search-input{
+      border:1px solid #ccc;
+      border-radius:4px;
+      padding:8px 9px;
+      width:100%;
+      font-size:13px;
+    }
+    .search-input[type="date"]{
+      padding-right:4px;
+    }
+    .search-button-wrap{
+      min-width:130px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-end;
+    }
+    .btn-search{
+      width:100%;
+      border:none;
+      border-radius:4px;
+      padding:9px 12px;
+      background:var(--nr-primary);
+      color:#fff;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    .hero-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:8px;
+      font-size:11px;
+    }
+    .hero-tag{
+      background:rgba(255,255,255,0.12);
+      border-radius:20px;
+      padding:3px 9px;
+      border:1px solid rgba(255,255,255,0.4);
+    }
+
+    /* MAIN LAYOUT */
+    .main{
+      max-width:1180px;
+      margin:16px auto 40px;
+      padding:0 12px;
+    }
+    .layout{
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:16px;
+    }
+
+    /* FILTERS */
+    .filters{
+      background:#fff;
+      border-radius:10px;
+      padding:10px 10px 12px;
+      box-shadow:0 1px 5px rgba(0,0,0,.08);
+      font-size:13px;
+    }
+    .filters-title{
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .filter-block{
+      margin-bottom:10px;
+    }
+    .filter-block label{
+      display:block;
+      font-size:12px;
+      margin-bottom:4px;
+      color:#555;
+    }
+    .filter-select,
+    .filter-range{
+      width:100%;
+      padding:6px 8px;
+      border-radius:4px;
+      border:1px solid #ccc;
+      font-size:13px;
+    }
+    .filter-range{
+      padding:0;
+    }
+    .filter-note{
+      font-size:11px;
+      color:#777;
+      margin-top:3px;
+    }
+
+    /* RESULTS HEADER */
+    .results-header{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:10px;
+    }
+    .results-count{
+      font-size:13px;
+    }
+    .sort-select{
+      padding:6px 8px;
+      border-radius:4px;
+      border:1px solid #ccc;
+      font-size:13px;
+    }
+
+    /* CAR CARDS */
+    .cards{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .card{
+      background:#fff;
+      border-radius:10px;
+      display:grid;
+      grid-template-columns:200px minmax(0,1fr) 150px;
+      gap:10px;
+      padding:10px;
+      box-shadow:0 1px 5px rgba(0,0,0,.08);
+    }
+    .card-img-wrap{
+      border-radius:8px;
+      overflow:hidden;
+      height:150px;
+    }
+    .card-main{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      font-size:13px;
+    }
+    .car-name{
+      font-size:15px;
+      font-weight:700;
+    }
+    .car-location{
+      font-size:12px;
+      color:#555;
+    }
+    .car-specs{
+      font-size:12px;
+      color:#555;
+      margin-top:4px;
+    }
+    .car-specs span{
+      margin-right:8px;
+    }
+    .car-rating{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:4px;
+    }
+    .rating-badge{
+      background:var(--nr-blue);
+      color:#fff;
+      padding:3px 7px;
+      border-radius:4px;
+      font-size:12px;
+      font-weight:600;
+    }
+    .rating-text{
+      font-size:12px;
+      color:#555;
+    }
+
+    .card-price{
+      text-align:right;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      font-size:12px;
+    }
+    .price-per-day{
+      font-size:16px;
+      font-weight:800;
+    }
+    .price-note{
+      font-size:11px;
+      color:#555;
+    }
+    .btn-book{
+      border:none;
+      border-radius:4px;
+      padding:7px 10px;
+      background:var(--nr-primary);
+      color:#fff;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .no-results{
+      font-size:13px;
+      color:#555;
+      margin-top:10px;
+    }
+
+    /* BOOKINGS VIEW */
+    .bookings-view{
+      display:none;
+    }
+    .bookings-view h2{
+      font-size:18px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+    .booking-card{
+      background:#fff;
+      border-radius:10px;
+      padding:10px;
+      box-shadow:0 1px 5px rgba(0,0,0,.08);
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    /* MODAL */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:100;
+    }
+    .modal{
+      background:#fff;
+      border-radius:10px;
+      max-width:430px;
+      width:90%;
+      padding:14px 14px 16px;
+      box-shadow:0 4px 20px rgba(0,0,0,.4);
+      font-size:13px;
+    }
+    .modal-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:8px;
+    }
+    .modal-title{
+      font-size:16px;
+      font-weight:800;
+    }
+    .modal-close{
+      cursor:pointer;
+      font-size:18px;
+      line-height:1;
+    }
+    .modal-section{
+      margin-bottom:10px;
+    }
+    .modal-section h4{
+      font-size:13px;
+      font-weight:700;
+      margin-bottom:4px;
+    }
+    .modal-field{
+      margin-bottom:6px;
+    }
+    .modal-field label{
+      display:block;
+      font-size:11px;
+      margin-bottom:2px;
+    }
+    .modal-input,
+    .modal-select{
+      width:100%;
+      padding:6px 8px;
+      border-radius:4px;
+      border:1px solid #ccc;
+      font-size:13px;
+    }
+    .modal-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-top:8px;
+    }
+    .btn-secondary{
+      border:none;
+      border-radius:4px;
+      padding:7px 10px;
+      background:#eee;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .btn-primary{
+      border:none;
+      border-radius:4px;
+      padding:7px 10px;
+      background:var(--nr-primary);
+      color:#fff;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .confirmation{
+      margin-top:6px;
+      font-size:12px;
+      color:#155724;
+      background:#d4edda;
+      border-radius:4px;
+      padding:6px 7px;
+      display:none;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#111;
+      color:#bbb;
+      font-size:11px;
+      padding:14px 12px;
+    }
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      justify-content:space-between;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:960px){
+      .layout{
+        grid-template-columns:1fr;
+      }
+      .card{
+        grid-template-columns:170px minmax(0,1fr);
+      }
+      .card-price{
+        grid-column:1 / -1;
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        text-align:left;
+        margin-top:4px;
+      }
+    }
+    @media(max-width:720px){
+      .header-inner{
+        flex-wrap:wrap;
+      }
+      .nav{
+        order:3;
+        width:100%;
+        overflow-x:auto;
+      }
+      .search-panel{
+        padding:8px;
+      }
+    }
+    @media(max-width:520px){
+      .card{
+        grid-template-columns:1fr;
+      }
+      .card-img-wrap{
+        height:180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <div class="logo-mark">N</div>
+      <div>
+        <div class="logo-text">NovaRide</div>
+        <div class="logo-sub">Rent cars in minutes</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="nav-link active" data-view="search">Rent a car</div>
+      <div class="nav-link" data-view="bookings">My bookings</div>
+      <div class="nav-link">Help</div>
+    </nav>
+    <div class="header-right">
+      <button class="btn-outline">Sign in</button>
+      <button class="btn-light">Sign up</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Search, compare, and book rental cars</h1>
+    <p class="hero-sub">
+      Pick a location, choose your dates, and reserve a car with a RentACar‑style experience. All bookings are mock and safe for testing.
+    </p>
+
+    <div class="search-panel">
+      <div class="search-field">
+        <div class="search-label">Pickup location</div>
+        <input id="pickupInput" class="search-input" placeholder="City or airport (e.g. Lahore, Seoul, LAX)">
+      </div>
+      <div class="search-field">
+        <div class="search-label">Rental start</div>
+        <input id="startDateInput" type="date" class="search-input">
+      </div>
+      <div class="search-field">
+        <div class="search-label">Return date</div>
+        <input id="endDateInput" type="date" class="search-input">
+      </div>
+      <div class="search-field">
+        <div class="search-label">Drivers & passengers</div>
+        <input id="driversInput" type="number" min="1" value="1" class="search-input" placeholder="Drivers">
+      </div>
+      <div class="search-button-wrap">
+        <button id="searchBtn" class="btn-search">Search cars</button>
+      </div>
+    </div>
+
+    <div class="hero-tags">
+      <div class="hero-tag">Popular: Lahore • Karachi • Islamabad</div>
+      <div class="hero-tag">Korea: Seoul • Jeju • Busan</div>
+      <div class="hero-tag">Japan: Tokyo • Osaka</div>
+      <div class="hero-tag">Airport pickups & delivery options</div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- SEARCH & RESULTS -->
+  <section id="searchView">
+    <div class="layout">
+      <!-- FILTERS -->
+      <aside class="filters">
+        <div class="filters-title">Filter</div>
+
+        <div class="filter-block">
+          <label for="typeFilter">Car type</label>
+          <select id="typeFilter" class="filter-select">
+            <option value="any">Any</option>
+            <option value="economy">Economy</option>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="luxury">Luxury</option>
+            <option value="van">Van</option>
+            <option value="ev">Electric</option>
+          </select>
+        </div>
+
+        <div class="filter-block">
+          <label for="brandFilter">Brand</label>
+          <select id="brandFilter" class="filter-select">
+            <option value="any">Any</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Kia">Kia</option>
+            <option value="Honda">Honda</option>
+            <option value="BMW">BMW</option>
+            <option value="Tesla">Tesla</option>
+          </select>
+        </div>
+
+        <div class="filter-block">
+          <label for="fuelFilter">Fuel type</label>
+          <select id="fuelFilter" class="filter-select">
+            <option value="any">Any</option>
+            <option value="petrol">Petrol</option>
+            <option value="diesel">Diesel</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="electric">Electric</option>
+          </select>
+        </div>
+
+        <div class="filter-block">
+          <label for="priceFilter">Price range</label>
+          <select id="priceFilter" class="filter-select">
+            <option value="any">Any</option>
+            <option value="budget">Budget (0–50)</option>
+            <option value="mid">Mid‑range (50–120)</option>
+            <option value="premium">Premium (120+)</option>
+          </select>
+        </div>
+
+        <div class="filter-block">
+          <label for="priceSlider">Max price (per day)</label>
+          <input id="priceSlider" type="range" min="30" max="200" value="200" class="filter-range">
+          <div class="filter-note" id="priceSliderLabel">Max: $200/day</div>
+        </div>
+
+        <div class="filter-block">
+          <div class="filter-note">
+            Use filters and sort to refine cars by type, brand, fuel, and price, similar to professional car rental sites.
+          </div>
+        </div>
+      </aside>
+
+      <!-- RESULTS -->
+      <section>
+        <div class="results-header">
+          <div class="results-count" id="resultsCount">Search to view available cars.</div>
+          <select id="sortSelect" class="sort-select">
+            <option value="recommended">Sort: Recommended</option>
+            <option value="priceLow">Price (low to high)</option>
+            <option value="priceHigh">Price (high to low)</option>
+            <option value="ratingHigh">Best rated</option>
+          </select>
+        </div>
+
+        <div id="cards" class="cards"></div>
+        <div id="noResults" class="no-results" style="display:none;">
+          No cars match your filters. Try another location or adjust the filters.
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- BOOKINGS VIEW -->
+  <section id="bookingsView" class="bookings-view">
+    <h2>My car bookings</h2>
+    <p style="font-size:13px;color:#555;margin-bottom:8px;">
+      These are mock car rentals stored in your browser with localStorage – good for testing booking and verification code flows.
+    </p>
+    <div id="bookingsList"></div>
+    <div id="noBookings" class="no-results">
+      You have no bookings yet. Search, choose a car, and confirm a booking to see it here.
+    </div>
+  </section>
+
+</main>
+
+<!-- BOOKING MODAL -->
+<div id="modalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalCarName">Book this car</div>
+      <div class="modal-close" id="modalClose">×</div>
+    </div>
+
+    <div class="modal-section" id="modalSummary"></div>
+
+    <div class="modal-section">
+      <h4>Pickup or delivery</h4>
+      <div class="modal-field">
+        <label for="handoverType">Handover method</label>
+        <select id="handoverType" class="modal-select">
+          <option value="pickup">Pickup at rental location</option>
+          <option value="delivery">Deliver car to my address</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label for="handoverAddress">Pickup/delivery address</label>
+        <input id="handoverAddress" class="modal-input" placeholder="Exact location for pickup or delivery">
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <h4>Driver details</h4>
+      <div class="modal-field">
+        <label for="driverName">Full name</label>
+        <input id="driverName" class="modal-input" placeholder="Your full name">
+      </div>
+      <div class="modal-field">
+        <label for="driverEmail">Email</label>
+        <input id="driverEmail" class="modal-input" type="email" placeholder="name@example.com">
+      </div>
+      <div class="modal-field">
+        <label for="driverPhone">Phone</label>
+        <input id="driverPhone" class="modal-input" placeholder="+00 000 0000000">
+      </div>
+      <div class="modal-field">
+        <label for="driverNotes">Notes (optional)</label>
+        <input id="driverNotes" class="modal-input" placeholder="Flight number, special requests, etc.">
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" id="modalCancel">Cancel</button>
+      <button class="btn-primary" id="modalConfirm">Confirm booking</button>
+    </div>
+
+    <div id="confirmationBox" class="confirmation"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 NovaRide. Rent‑a‑car style demo site (mock only).</div>
+    <div>Design inspired by modern car rental platforms with filters and booking flows. [参考デザイン][web:59][web:60][web:66]</div>
+  </div>
+</footer>
+
+<script>
+  // Sample car data across locations
+  const cars = [
+    {
+      id:"lahore_corolla",
+      name:"Toyota Corolla",
+      brand:"Toyota",
+      type:"sedan",
+      city:"Lahore",
+      country:"Pakistan",
+      fuel:"petrol",
+      seats:5,
+      transmission:"Automatic",
+      rating:8.7,
+      reviews:320,
+      pricePerDay:45,
+      image:"https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"lahore_cultus",
+      name:"Suzuki Cultus",
+      brand:"Suzuki",
+      type:"economy",
+      city:"Lahore",
+      country:"Pakistan",
+      fuel:"petrol",
+      seats:4,
+      transmission:"Manual",
+      rating:8.2,
+      reviews:210,
+      pricePerDay:30,
+      image:"https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"seoul_sonata",
+      name:"Hyundai Sonata",
+      brand:"Hyundai",
+      type:"sedan",
+      city:"Seoul",
+      country:"South Korea",
+      fuel:"petrol",
+      seats:5,
+      transmission:"Automatic",
+      rating:9.0,
+      reviews:540,
+      pricePerDay:65,
+      image:"https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"seoul_suv",
+      name:"Kia Sportage",
+      brand:"Kia",
+      type:"suv",
+      city:"Seoul",
+      country:"South Korea",
+      fuel:"diesel",
+      seats:5,
+      transmission:"Automatic",
+      rating:8.9,
+      reviews:410,
+      pricePerDay:80,
+      image:"https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"jeju_minivan",
+      name:"Hyundai Staria",
+      brand:"Hyundai",
+      type:"van",
+      city:"Jeju",
+      country:"South Korea",
+      fuel:"diesel",
+      seats:9,
+      transmission:"Automatic",
+      rating:8.6,
+      reviews:190,
+      pricePerDay:95,
+      image:"https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"tokyo_prius",
+      name:"Toyota Prius Hybrid",
+      brand:"Toyota",
+      type:"sedan",
+      city:"Tokyo",
+      country:"Japan",
+      fuel:"hybrid",
+      seats:5,
+      transmission:"Automatic",
+      rating:9.1,
+      reviews:670,
+      pricePerDay:75,
+      image:"https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"tokyo_ev",
+      name:"Nissan Leaf EV",
+      brand:"Nissan",
+      type:"ev",
+      city:"Tokyo",
+      country:"Japan",
+      fuel:"electric",
+      seats:5,
+      transmission:"Automatic",
+      rating:8.8,
+      reviews:310,
+      pricePerDay:85,
+      image:"https://images.pexels.com/photos/2127733/pexels-photo-2127733.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"dubai_bmw",
+      name:"BMW 5 Series",
+      brand:"BMW",
+      type:"luxury",
+      city:"Dubai",
+      country:"UAE",
+      fuel:"petrol",
+      seats:5,
+      transmission:"Automatic",
+      rating:9.3,
+      reviews:260,
+      pricePerDay:150,
+      image:"https://images.pexels.com/photos/145619/pexels-photo-145619.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"la_mustang",
+      name:"Ford Mustang Convertible",
+      brand:"Ford",
+      type:"luxury",
+      city:"Los Angeles",
+      country:"USA",
+      fuel:"petrol",
+      seats:4,
+      transmission:"Automatic",
+      rating:8.9,
+      reviews:220,
+      pricePerDay:160,
+      image:"https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      id:"nyc_model3",
+      name:"Tesla Model 3",
+      brand:"Tesla",
+      type:"ev",
+      city:"New York",
+      country:"USA",
+      fuel:"electric",
+      seats:5,
+      transmission:"Automatic",
+      rating:9.4,
+      reviews:430,
+      pricePerDay:140,
+      image:"https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    }
+  ];
+
+  // SEARCH STATE
+  const pickupInput = document.getElementById("pickupInput");
+  const startDateInput = document.getElementById("startDateInput");
+  const endDateInput = document.getElementById("endDateInput");
+  const driversInput = document.getElementById("driversInput");
+  const searchBtn = document.getElementById("searchBtn");
+
+  const typeFilter = document.getElementById("typeFilter");
+  const brandFilter = document.getElementById("brandFilter");
+  const fuelFilter = document.getElementById("fuelFilter");
+  const priceFilter = document.getElementById("priceFilter");
+  const priceSlider = document.getElementById("priceSlider");
+  const priceSliderLabel = document.getElementById("priceSliderLabel");
+  const sortSelect = document.getElementById("sortSelect");
+
+  const cardsEl = document.getElementById("cards");
+  const resultsCountEl = document.getElementById("resultsCount");
+  const noResultsEl = document.getElementById("noResults");
+
+  const searchView = document.getElementById("searchView");
+  const bookingsView = document.getElementById("bookingsView");
+  const bookingsList = document.getElementById("bookingsList");
+  const noBookings = document.getElementById("noBookings");
+  const navLinks = document.querySelectorAll(".nav-link[data-view]");
+
+  let currentSearch = {
+    pickup:"",
+    start:null,
+    end:null,
+    days:1,
+    drivers:1
+  };
+  let filteredCars = cars.slice();
+  let currentCarForBooking = null;
+
+  function calcDays(start,end){
+    if(!start || !end) return 1;
+    const s = new Date(start);
+    const e = new Date(end);
+    const diff = (e - s)/(1000*60*60*24);
+    return diff>0 ? diff : 1;
+  }
+
+  function applyFilters(){
+    let list = cars.slice();
+    const pick = currentSearch.pickup.toLowerCase();
+    if(pick){
+      list = list.filter(c =>
+        (c.city + " " + c.country).toLowerCase().includes(pick)
+      );
+    }
+
+    const tf = typeFilter.value;
+    if(tf!=="any"){
+      list = list.filter(c => c.type === tf);
+    }
+    const bf = brandFilter.value;
+    if(bf!=="any"){
+      list = list.filter(c => c.brand === bf);
+    }
+    const ff = fuelFilter.value;
+    if(ff!=="any"){
+      list = list.filter(c => c.fuel === ff);
+    }
+
+    const pf = priceFilter.value;
+    list = list.filter(c=>{
+      if(pf==="budget") return c.pricePerDay<=50;
+      if(pf==="mid") return c.pricePerDay>50 && c.pricePerDay<=120;
+      if(pf==="premium") return c.pricePerDay>120;
+      return true;
+    });
+
+    const sliderMax = parseFloat(priceSlider.value||"200");
+    list = list.filter(c=>c.pricePerDay<=sliderMax);
+
+    const sort = sortSelect.value;
+    if(sort==="priceLow"){
+      list.sort((a,b)=>a.pricePerDay-b.pricePerDay);
+    }else if(sort==="priceHigh"){
+      list.sort((a,b)=>b.pricePerDay-a.pricePerDay);
+    }else if(sort==="ratingHigh"){
+      list.sort((a,b)=>b.rating-a.rating);
+    }
+
+    filteredCars = list;
+    renderCards();
+  }
+
+  function renderCards(){
+    cardsEl.innerHTML = "";
+    if(!filteredCars.length){
+      noResultsEl.style.display="block";
+      resultsCountEl.textContent="0 cars found.";
+      return;
+    }
+    noResultsEl.style.display="none";
+    resultsCountEl.textContent = `${filteredCars.length} cars found for your dates.`;
+
+    const days = currentSearch.days || 1;
+
+    filteredCars.forEach(c=>{
+      const totalPrice = c.pricePerDay * days;
+
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = "card-img-wrap";
+      const img = document.createElement("img");
+      img.src = c.image;
+      img.alt = c.name;
+      imgWrap.appendChild(img);
+
+      const main = document.createElement("div");
+      main.className = "card-main";
+
+      const name = document.createElement("div");
+      name.className = "car-name";
+      name.textContent = c.name;
+
+      const loc = document.createElement("div");
+      loc.className = "car-location";
+      loc.textContent = `${c.city}, ${c.country}`;
+
+      const specs = document.createElement("div");
+      specs.className = "car-specs";
+      specs.innerHTML = `
+        <span>${c.brand}</span>
+        <span>${c.seats} seats</span>
+        <span>${c.transmission}</span>
+        <span>${c.fuel}</span>
+      `;
+
+      const ratingWrap = document.createElement("div");
+      ratingWrap.className = "car-rating";
+      const badge = document.createElement("div");
+      badge.className = "rating-badge";
+      badge.textContent = c.rating.toFixed(1);
+      const rText = document.createElement("div");
+      rText.className = "rating-text";
+      rText.textContent = `${c.reviews.toLocaleString()} reviews`;
+      ratingWrap.appendChild(badge);
+      ratingWrap.appendChild(rText);
+
+      main.appendChild(name);
+      main.appendChild(loc);
+      main.appendChild(specs);
+      main.appendChild(ratingWrap);
+
+      const priceCol = document.createElement("div");
+      priceCol.className = "card-price";
+      const perDay = document.createElement("div");
+      perDay.className = "price-per-day";
+      perDay.textContent = `$${c.pricePerDay}`;
+      const perDayNote = document.createElement("div");
+      perDayNote.className = "price-note";
+      perDayNote.textContent = `per day • ${days} day(s)`;
+      const totalNote = document.createElement("div");
+      totalNote.className = "price-note";
+      totalNote.textContent = `Total: $${totalPrice}`;
+      const bookBtn = document.createElement("button");
+      bookBtn.className = "btn-book";
+      bookBtn.textContent = "Book";
+      bookBtn.addEventListener("click",()=>openBookingModal(c,totalPrice));
+
+      priceCol.appendChild(perDay);
+      priceCol.appendChild(perDayNote);
+      priceCol.appendChild(totalNote);
+      priceCol.appendChild(bookBtn);
+
+      card.appendChild(imgWrap);
+      card.appendChild(main);
+      card.appendChild(priceCol);
+
+      cardsEl.appendChild(card);
+    });
+  }
+
+  function runSearch(){
+    currentSearch.pickup = pickupInput.value.trim();
+    const s = startDateInput.value;
+    const e = endDateInput.value;
+    currentSearch.start = s || null;
+    currentSearch.end = e || null;
+    currentSearch.days = calcDays(s,e);
+    currentSearch.drivers = parseInt(driversInput.value||"1",10);
+    applyFilters();
+  }
+
+  searchBtn.addEventListener("click", runSearch);
+  typeFilter.addEventListener("change", applyFilters);
+  brandFilter.addEventListener("change", applyFilters);
+  fuelFilter.addEventListener("change", applyFilters);
+  priceFilter.addEventListener("change", applyFilters);
+  sortSelect.addEventListener("change", applyFilters);
+  priceSlider.addEventListener("input",()=>{
+    priceSliderLabel.textContent = `Max: $${priceSlider.value}/day`;
+    applyFilters();
+  });
+
+  // BOOKING MODAL / "DATABASE" (localStorage)
+  const modalBackdrop = document.getElementById("modalBackdrop");
+  const modalCarName = document.getElementById("modalCarName");
+  const modalSummary = document.getElementById("modalSummary");
+  const modalClose = document.getElementById("modalClose");
+  const modalCancel = document.getElementById("modalCancel");
+  const modalConfirm = document.getElementById("modalConfirm");
+  const confirmationBox = document.getElementById("confirmationBox");
+
+  const handoverType = document.getElementById("handoverType");
+  const handoverAddress = document.getElementById("handoverAddress");
+  const driverName = document.getElementById("driverName");
+  const driverEmail = document.getElementById("driverEmail");
+  const driverPhone = document.getElementById("driverPhone");
+  const driverNotes = document.getElementById("driverNotes");
+
+  function openBookingModal(car,total){
+    currentCarForBooking = {car,total};
+    modalCarName.textContent = car.name;
+    const s = currentSearch.start || "(no date)";
+    const e = currentSearch.end || "(no date)";
+    const days = currentSearch.days || 1;
+    modalSummary.innerHTML = `
+      <div class="modal-section">
+        <h4>Rental details</h4>
+        <div>${car.city}, ${car.country}</div>
+        <div>${s} → ${e} • ${days} day(s)</div>
+        <div>${currentSearch.drivers} driver(s)</div>
+        <div style="margin-top:4px;font-weight:700;">Total: $${total}</div>
+        <div style="font-size:11px;color:#555;margin-top:2px;">
+          Payment: Pay at counter (mock). No real charge – this is only for testing.
+        </div>
+      </div>
+    `;
+    handoverType.value="pickup";
+    handoverAddress.value="";
+    driverName.value="";
+    driverEmail.value="";
+    driverPhone.value="";
+    driverNotes.value="";
+    confirmationBox.style.display="none";
+    modalBackdrop.style.display="flex";
+  }
+
+  function closeModal(){
+    modalBackdrop.style.display="none";
+  }
+
+  modalClose.addEventListener("click",closeModal);
+  modalCancel.addEventListener("click",closeModal);
+  modalBackdrop.addEventListener("click",e=>{
+    if(e.target===modalBackdrop) closeModal();
+  });
+
+  function randomBookingId(){
+    return "NR-" + Math.random().toString(36).substring(2,8).toUpperCase();
+  }
+  function randomVerificationCode(){
+    return Math.floor(100000 + Math.random()*900000).toString();
+  }
+
+  function loadBookings(){
+    const raw = localStorage.getItem("novaride_bookings");
+    if(!raw){
+      bookingsList.innerHTML="";
+      noBookings.style.display="block";
+      return;
+    }
+    let arr=[];
+    try{arr = JSON.parse(raw)||[];}catch(e){arr=[];}
+    bookingsList.innerHTML="";
+    if(!arr.length){
+      noBookings.style.display="block";
+      return;
+    }
+    noBookings.style.display="none";
+    arr.forEach(b=>{
+      const card = document.createElement("div");
+      card.className = "booking-card";
+      card.innerHTML = `
+        <div style="font-weight:700;margin-bottom:3px;">${b.carName}</div>
+        <div>${b.city}, ${b.country}</div>
+        <div>${b.start} → ${b.end} • ${b.days} day(s)</div>
+        <div>Handover: ${b.handoverType==="pickup"?"Pickup at location":"Delivery to address"}</div>
+        <div>Address: ${b.handoverAddress || "(not specified)"}</div>
+        <div>Booking ID: <strong>${b.id}</strong></div>
+        <div>Verification code: <strong>${b.verificationCode}</strong></div>
+        <div>Total: $${b.totalPrice}</div>
+        <div style="font-size:11px;color:#555;margin-top:3px;">
+          Bring this verification code to collect the car, or staff will use it when delivering (mock only).
+        </div>
+      `;
+      bookingsList.appendChild(card);
+    });
+  }
+
+  modalConfirm.addEventListener("click",()=>{
+    if(!currentCarForBooking) return;
+    const name = driverName.value.trim();
+    const email = driverEmail.value.trim();
+    const addr = handoverAddress.value.trim();
+    if(!name || !email || !addr){
+      alert("Please fill in your name, email, and pickup/delivery address.");
+      return;
+    }
+
+    const car = currentCarForBooking.car;
+    const days = currentSearch.days || 1;
+    const bookingId = randomBookingId();
+    const verificationCode = randomVerificationCode();
+
+    const booking = {
+      id:bookingId,
+      verificationCode,
+      carId:car.id,
+      carName:car.name,
+      city:car.city,
+      country:car.country,
+      start:currentSearch.start || "(no date)",
+      end:currentSearch.end || "(no date)",
+      days,
+      totalPrice:currentCarForBooking.total,
+      handoverType:handoverType.value,
+      handoverAddress:addr,
+      name,
+      email,
+      phone:driverPhone.value.trim(),
+      notes:driverNotes.value.trim(),
+      createdAt:Date.now()
+    };
+    const raw = localStorage.getItem("novaride_bookings");
+    let arr=[];
+    if(raw){
+      try{arr = JSON.parse(raw)||[];}catch(e){arr=[];}
+    }
+    arr.unshift(booking);
+    localStorage.setItem("novaride_bookings",JSON.stringify(arr));
+
+    confirmationBox.innerHTML =
+      `Booking confirmed!<br>Booking ID: <strong>${bookingId}</strong><br>`+
+      `Verification code: <strong>${verificationCode}</strong><br>`+
+      `Show this code when you come to pick up the car or when we deliver it. A mock confirmation email has been sent to ${email}.`;
+    confirmationBox.style.display="block";
+
+    setTimeout(()=>{
+      closeModal();
+      switchView("bookings");
+    },1400);
+  });
+
+  function switchView(view){
+    if(view==="bookings"){
+      searchView.style.display="none";
+      bookingsView.style.display="block";
+      navLinks.forEach(n=>n.classList.toggle("active",n.dataset.view==="bookings"));
+      loadBookings();
+    }else{
+      searchView.style.display="block";
+      bookingsView.style.display="none";
+      navLinks.forEach(n=>n.classList.toggle("active",n.dataset.view==="search"));
+    }
+  }
+
+  navLinks.forEach(link=>{
+    link.addEventListener("click",()=>{
+      const v = link.dataset.view;
+      if(v) switchView(v);
+    });
+  });
+
+  // Initial: show all cars as featured
+  filteredCars = cars.slice();
+  renderCards();
+</script>
+
+</body>
+</html>
